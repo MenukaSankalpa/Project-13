@@ -49,21 +49,36 @@ snake =Snake()
 food_surface = pygame.image.load("Graphics/food.png")
 
 SNAKE_UPDATE = pygame.USEREVENT
+pygame.time.set_timer(SNAKE_UPDATE, 200)
 
 
 while True:
     for event in pygame.event.get():
+        if event.type == SNAKE_UPDATE:
+            snake.update()
         if event.type == pygame.QUIT: 
             pygame.quit()
             sys.exit()
+            
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP and snake.direction != Vector2(0, 1):
+                snake.direction = Vector2(0, -1)   
+            if event.key == pygame.K_DOWN and snake.direction != Vector2(0, -1):
+                snake.direction = Vector2(0, 1)
+            if event.key == pygame.K_LEFT and snake.direction != Vector2(1, 0):
+                snake.direction = Vector2(-1, 0)
+            if event.key == pygame.K_RIGHT and snake.direction != Vector2(-1, 0):
+                snake.direction = Vector2(1, 0)     
+
     
-    snake.update() 
-     
+    #snake.update() 
+
             
     #drawing
     screen.fill(GREEN)   
     food.draw()
     snake.draw()
-         
+
+
     pygame.display.update()
     clock.tick(60)        
