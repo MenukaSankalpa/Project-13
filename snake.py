@@ -48,7 +48,8 @@ class Game:
         self.snake.draw()
          
     def update(self):
-        self.snake.update()        
+        self.snake.update() 
+        self.check_collision_with_food()       
     
     def check_collision_with_food(self):
         if self.snake.body[0] == self.food.position:
